@@ -13,6 +13,7 @@ You can easily get the link url like http://hostname/InnovatorServer/Client/defa
 
 Project | Aras
 --------|------
+v11.6 | 11 SP6
 v11.5 | 11 SP5
 v9.4 | 9.4 SPx
 
@@ -25,6 +26,7 @@ Release notes/descriptions for the original project posted on the previous Aras 
 
 Release | Notes
 --------|--------
+v11.6 | Support version 11SP6. Instructions are described in the [Documentation/ReadMe-Add Item URL with propsDialog.pdf](Documentation/ReadMe-Add%20Item%20URL%20with%20propsDialog.pdf).
 v11.5 | Support version 11SP5. Instructions are described in the [Documentation/ReadMe-Add Item URL with propsDialog.pdf](Documentation/ReadMe-Add%20Item%20URL%20with%20propsDialog.pdf).
 v9.4 | Build v9.4 is the first version. Instructions are described in the [Documentation/Add Item URL with propsDialog-ReadMe-Japanese.pdf](Documentation/Add%20Item%20URL%20with%20propsDialog-ReadMe-Japanese.pdf).
 
