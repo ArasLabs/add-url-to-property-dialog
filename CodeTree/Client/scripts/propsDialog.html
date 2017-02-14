@@ -1,0 +1,68 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<!-- (c) Copyright by Aras Corporation, 2004-2007. -->
+
+<html>
+<head>
+  <!-- CC -->
+<title>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</title>
+<link rel="stylesheet" type="text/css" href="../styles/default.css">
+<script type="text/javascript" src="../javascript/ClientUrlsUtility.js"></script>
+<style type="text/css">
+body {
+  background-image:url(../images/Backgrounds/wvleft.gif);
+  background-repeat:no-repeat;
+}
+</style>
+<script>
+var aras     = dialogArguments.aras;
+var itemType = dialogArguments.itemType;
+var itemTypeName = aras.getNodeElement(itemType, 'name');
+var itemTypeLabel = aras.getNodeElement(itemType, 'label');
+if (!itemTypeLabel) itemTypeLabel = itemTypeName;
+var item     = dialogArguments.item;
+
+var s = document.title;
+for (var i=0; i<10; i++) s += s;
+
+document.title = aras.getResource("", "propsdialog.item_type_label__item_keyed_name__properties", itemTypeLabel, aras.getKeyedNameEx(item)) + s;
+
+onload = function()
+{
+  var widths = new Array(220, 20, 200, 200, 80, 120);
+  var h = aras.uiDrawItemInfoTable(itemType, widths);
+  
+  var utility = new ClientUrlsUtility(top.aras.getBaseURL());
+  var baseUrlWithoutSalt = utility.getBaseUrlWithoutSalt();
+  
+  var htmlToReplace = '<tr>' +
+                           '<td valign="top" nowrap="true">id</td>' +
+                           '<td id="state"><input type="text" name="idEdit" readonly size = "6" value="'+ item.getAttribute("id") +'">&nbsp;<input type="button" value="'+aras.getResource("", "common.copy")+'" onclick = "onCopy()"></td>'+
+                      '</tr>' + 
+                      '<tr>'+
+                           '<td valign="top" nowrap="true">url</td>' +
+                           '<td id="url"><input type="text" name="urlEdit" readonly size = "6" value="'+ baseUrlWithoutSalt +'/default.aspx?StartItem='+itemTypeName+':'+item.getAttribute("id")+'">&nbsp;<input type="button" value="'+aras.getResource("", "common.copy")+'" onclick = "onCopyUrl()"></td>'+
+                     '</tr>' + 
+                     '</table></td></tr>';
+  h = h.replace('</table></td></tr>',htmlToReplace);
+  document.getElementById("main_span").innerHTML = h;
+  aras.uiPopulateInfoTableWithItem(item,document);
+  idEdit.select();
+}
+
+onCopy = function()
+{
+              window.clipboardData.setData("Text", idEdit.value);
+}
+onCopyUrl = function()
+{
+              window.clipboardData.setData("Text", urlEdit.value);
+}
+</script>
+</head>
+
+<body topmargin=0 leftmargin=0 scroll=no>
+<span id="main_span"></span>
+</body>
+
+</html>
