@@ -12,15 +12,14 @@
 <script type="text/javascript" src="../javascript/ClientUrlsUtility.js"></script>
 
 <script>
-window.dialogArguments = window.dialogArguments || parent.dialogArguments;
-var aras = dialogArguments.aras;
-var itemType = dialogArguments.itemType;
+var aras = window.frameElement.dialogArguments.aras;
+var itemType = window.frameElement.dialogArguments.itemType;
 var itemTypeName = aras.getNodeElement(itemType, "name");
 var itemTypeLabel = aras.getNodeElement(itemType, "label");
 if (!itemTypeLabel) {
 	itemTypeLabel = itemTypeName;
 }
-var item = dialogArguments.item;
+var item = window.frameElement.dialogArguments.item;
 
 var s = document.title;
 for (var i = 0; i < 10; i++) {
