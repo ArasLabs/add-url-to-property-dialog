@@ -9,7 +9,12 @@ This project adds Item link url field to standard property dialog for any items.
 
 You can easily get the link url like http://hostname/InnovatorServer/Client/default.aspx?StartItem=Part:XXXXXX.
 
-**Supported Aras Versions:** 9.4
+**Supported Aras Versions:**
+
+Project | Aras
+--------|------
+v11.5 | 11 SP5
+v9.4 | 9.4 SPx
 
 ![Customized Part Form](./Screenshots/screenshot.JPG)
 ###### *The Item Properties dialog, modified to show the selected item's URL.*
@@ -20,6 +25,7 @@ Release notes/descriptions for the original project posted on the previous Aras 
 
 Release | Notes
 --------|--------
+v11.5 | Support version 11SP5. Instructions are described in the [Documentation/ReadMe-Add Item URL with propsDialog.pdf](Documentation/ReadMe-Add%20Item%20URL%20with%20propsDialog.pdf).
 v9.4 | Build v9.4 is the first version. Instructions are described in the [Documentation/Add Item URL with propsDialog-ReadMe-Japanese.pdf](Documentation/Add%20Item%20URL%20with%20propsDialog-ReadMe-Japanese.pdf).
 
 ## Credits

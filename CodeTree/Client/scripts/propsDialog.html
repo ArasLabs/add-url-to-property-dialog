@@ -1,68 +1,82 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-
-<!-- (c) Copyright by Aras Corporation, 2004-2007. -->
-
+﻿<!DOCTYPE HTML>
+<!-- (c) Copyright by Aras Corporation, 2004-2013. -->
 <html>
 <head>
-  <!-- CC -->
 <title>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</title>
-<link rel="stylesheet" type="text/css" href="../styles/default.css">
-<script type="text/javascript" src="../javascript/ClientUrlsUtility.js"></script>
 <style type="text/css">
-body {
-  background-image:url(../images/Backgrounds/wvleft.gif);
-  background-repeat:no-repeat;
-}
+	@import "../javascript/include.aspx?classes=common.css";
+	@import "../styles/default.css";
+	@import "../styles/propsDialog.css";
 </style>
+<script type="text/javascript" src="../javascript/dialog.js"></script>
+<script type="text/javascript" src="../javascript/ClientUrlsUtility.js"></script>
+
 <script>
-var aras     = dialogArguments.aras;
+window.dialogArguments = window.dialogArguments || parent.dialogArguments;
+var aras = dialogArguments.aras;
 var itemType = dialogArguments.itemType;
-var itemTypeName = aras.getNodeElement(itemType, 'name');
-var itemTypeLabel = aras.getNodeElement(itemType, 'label');
-if (!itemTypeLabel) itemTypeLabel = itemTypeName;
-var item     = dialogArguments.item;
+var itemTypeName = aras.getNodeElement(itemType, "name");
+var itemTypeLabel = aras.getNodeElement(itemType, "label");
+if (!itemTypeLabel) {
+	itemTypeLabel = itemTypeName;
+}
+var item = dialogArguments.item;
 
 var s = document.title;
-for (var i=0; i<10; i++) s += s;
-
+for (var i = 0; i < 10; i++) {
+	s += s;
+}
 document.title = aras.getResource("", "propsdialog.item_type_label__item_keyed_name__properties", itemTypeLabel, aras.getKeyedNameEx(item)) + s;
 
-onload = function()
-{
-  var widths = new Array(220, 20, 200, 200, 80, 120);
-  var h = aras.uiDrawItemInfoTable(itemType, widths);
-  
-  var utility = new ClientUrlsUtility(top.aras.getBaseURL());
-  var baseUrlWithoutSalt = utility.getBaseUrlWithoutSalt();
-  
-  var htmlToReplace = '<tr>' +
-                           '<td valign="top" nowrap="true">id</td>' +
-                           '<td id="state"><input type="text" name="idEdit" readonly size = "6" value="'+ item.getAttribute("id") +'">&nbsp;<input type="button" value="'+aras.getResource("", "common.copy")+'" onclick = "onCopy()"></td>'+
-                      '</tr>' + 
-                      '<tr>'+
-                           '<td valign="top" nowrap="true">url</td>' +
-                           '<td id="url"><input type="text" name="urlEdit" readonly size = "6" value="'+ baseUrlWithoutSalt +'/default.aspx?StartItem='+itemTypeName+':'+item.getAttribute("id")+'">&nbsp;<input type="button" value="'+aras.getResource("", "common.copy")+'" onclick = "onCopyUrl()"></td>'+
-                     '</tr>' + 
-                     '</table></td></tr>';
-  h = h.replace('</table></td></tr>',htmlToReplace);
-  document.getElementById("main_span").innerHTML = h;
-  aras.uiPopulateInfoTableWithItem(item,document);
-  idEdit.select();
-}
+onload = function() {
+	var widths = new Array(220, 20, 200, 200, 80, 120);
+	var h = aras.uiDrawItemInfoTable(itemType, widths);
 
-onCopy = function()
-{
-              window.clipboardData.setData("Text", idEdit.value);
+	// Add Neosystem Start
+	var utility = new ClientUrlsUtility(top.aras.getBaseURL());
+	var baseUrlWithoutSalt = utility.getBaseUrlWithoutSalt();
+	// Add Neosystem End
+
+	var html =	'<div id="id_row" class="prop-field">' +
+					'<span class="prop-label">id:</span>' +
+					'<span id="itemProps$id" class="prop-value">' +
+				'</span></div>';
+
+	// Add Neosystem Start
+	var html3 =	'<div id="id_row" class="prop-field" style="margin-top:5px;">' +
+					'<span class="prop-label">url:</span>' +
+					'<span id="itemProps$url" class="prop-value">' +
+				'</span></div>';
+	// Add Neosystem End
+
+	var lastIndexDiv = h.lastIndexOf("</div>");
+	// Edit Neosystem Start
+	//h = h.substr(0, lastIndexDiv) + html + h.substr(lastIndexDiv);
+	h = h.substr(0, lastIndexDiv) + html + html3 + h.substr(lastIndexDiv);
+	// Edit Neosystem End
+
+	document.getElementById("itemProperties").innerHTML = h;
+	aras.uiPopulateInfoTableWithItem(item, document);
+
+	document.getElementById("itemProps$id").innerHTML = '<input type="text" id="idEdit" readonly size="4" value="'+ item.getAttribute("id") +'" />&nbsp;<input class="btn1" type="button" value="' + aras.getResource("", "common.copy") + '" onclick = "onCopy()" />';
+	document.getElementById("idEdit").select();
+
+	// Add Neosystem Start
+	document.getElementById("itemProps$url").innerHTML = '<input type="text" id="urlEdit" readonly size="4" value="'+ baseUrlWithoutSalt +'/default.aspx?StartItem='+itemTypeName+':'+item.getAttribute("id")+'">&nbsp;<input class="btn1" type="button" value="' + aras.getResource("", "common.copy") + '" onclick = "onCopyURL()" />';
+	document.getElementById("urlEdit").select();
+	// Add Neosystem End
+};
+
+onCopy = function() {
+	aras.utils.setClipboardData("Text", document.getElementById("idEdit").value);
 }
-onCopyUrl = function()
-{
-              window.clipboardData.setData("Text", urlEdit.value);
+onCopyURL = function() {
+	aras.utils.setClipboardData("Text", document.getElementById("urlEdit").value);
 }
 </script>
 </head>
-
-<body topmargin=0 leftmargin=0 scroll=no>
-<span id="main_span"></span>
+<body class="claro" scroll="no">
+	<div id="itemProperties" class="table-col properties-block" style="width: 220px; height: 100%;" >
+	</div>
 </body>
-
 </html>
